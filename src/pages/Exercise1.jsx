@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Box from "../components/Box";
 import Title from "../components/Title";
+import Button from "@mui/material/Button";
 
 const operators = ["+", "-", "*", "/"];
 
@@ -67,21 +68,28 @@ export default function Exercise1() {
   const [feedback, setFeedback] = useState("");
 
   function startExercise() {
-    const ops = generateOperations();
-    setOperations(ops);
-    setHighestKey(getHighestOperation(ops));
-    setStep("show1");
-    setCurrentOp(0);
-    setTimeout;
-    setFeedback("");
+    setTries(0);
+    setScore(0);
+    showExercise();
   }
 
-  function nextOperation() {
-    if (currentOp < 1) {
-      setCurrentOp(currentOp + 1);
-      setStep("show2");
+  function showExercise() {
+    if (tries < 10) {
+      const ops = generateOperations();
+      setOperations(ops);
+      setHighestKey(getHighestOperation(ops));
+      setStep("show1");
+      setCurrentOp(0);
+      setFeedback("");
+      setTimeout(() => {
+        setStep("show2");
+        setCurrentOp(1);
+        setTimeout(() => {
+          setStep("choose");
+        }, 1000);
+      }, 1000);
     } else {
-      setStep("choose");
+      setStep("score");
     }
   }
 
@@ -91,10 +99,13 @@ export default function Exercise1() {
     else if (choice === "second" && highestKey === "operation2") correct = true;
     else if (choice === "equal" && highestKey === "equal") correct = true;
 
-    setFeedback(correct ? "Correct!" : "Incorrect. Try again!");
+    setFeedback(correct ? "Correct!" : "Incorrect.");
     setScore((s) => (correct ? s + 1 : s));
     setTries((t) => t + 1);
     setStep("feedback");
+    setTimeout(() => {
+      showExercise();
+    }, 1000);
   }
 
   function nextRound() {
@@ -102,43 +113,80 @@ export default function Exercise1() {
   }
 
   return (
-    <Box as="section">
-      <Title>Exercise 1</Title>
-      <Box>
-        {step === "start" && <button onClick={startExercise}>Start</button>}
+    <Box
+      as="section"
+      className="flex flex-col items-center justify-center min-h-screen"
+    >
+      <Title className="text-center">Getalvaardigheidstest</Title>
+      {step === "start" && (
+        <Box>
+          <h2>Doel</h2>
+          <p className="mb-2">
+            Dit is een oefening om te meten hoe snel en correct iemand
+            opdrachten met getallen uit het hoofd kan uitvoeren.
+          </p>
+          <h2>Omschrijving</h2>
+          <p>
+            Er wordt een eerste rekenopgave getoond. Bereken de uitkomst uit het
+            hoofd en onthoud de uitkomst. Op het volgende scherm wordt een
+            tweede rekenopgave getoond. Bereken en onthoud ook de uitkomst van
+            deze opgave. Op het derde en laatste scherm moet je aanduiden welke
+            uitkomst de GROOTSTE is, of aanduiden als de uitkomst GELIJK is.
+            Indien de bovenste lijn groter is, markeer dan B. Indien de onderste
+            lijn groter is, markeer dan O. Indien beide uitkomsten gelijk zijn,
+            markeer dan G. Bestudeer nu eerst voorbeeld 1 (Scherm 1, Scherm 2,
+            Scherm 3 en Oplossing). Doe daarna hetzelfde voor voorbeeld 2 en
+            eindig met voorbeeld 3.
+          </p>
+        </Box>
+      )}
+
+      <Box className="flex flex-col justify-center items-center">
+        {["show1", "show2", "choose"].includes(step) && (
+          <p className="my-2">Tries: {tries}</p>
+        )}
+        {step === "start" && (
+          <Box className="flex justify-center items-center">
+            <Button variant="contained" onClick={startExercise}>
+              Start
+            </Button>
+          </Box>
+        )}
         {step === "show1" && (
-          <div>
+          <Box>
             <p>Operation 1: {operations.operation1}</p>
-            <button onClick={nextOperation}>Next</button>
-          </div>
+          </Box>
         )}
         {step === "show2" && (
-          <div>
+          <Box>
             <p>Operation 2: {operations.operation2}</p>
-            <button onClick={nextOperation}>Choose</button>
-          </div>
+          </Box>
         )}
         {step === "choose" && (
-          <div>
-            <button className="px-2" onClick={() => handleChoice("first")}>
+          <Box className="flex flex-row justify-center gap-4">
+            <Button variant="outlined" onClick={() => handleChoice("first")}>
               B
-            </button>
-            <button className="px-2" onClick={() => handleChoice("second")}>
+            </Button>
+            <Button variant="outlined" onClick={() => handleChoice("second")}>
               O
-            </button>
-            <button className="px-2" onClick={() => handleChoice("equal")}>
+            </Button>
+            <Button variant="outlined" onClick={() => handleChoice("equal")}>
               G
-            </button>
-          </div>
+            </Button>
+          </Box>
         )}
         {step === "feedback" && (
-          <div>
+          <Box>
             <p>{feedback}</p>
-            <p>
-              Score: {score}, Tries: {tries}
-            </p>
-            <button onClick={nextRound}>Next</button>
-          </div>
+          </Box>
+        )}
+        {step === "score" && (
+          <Box>
+            <p className="mb-2">Your score is: {score}</p>
+            <Button variant="outlined" onClick={nextRound}>
+              Go Again
+            </Button>
+          </Box>
         )}
       </Box>
     </Box>

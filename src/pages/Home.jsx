@@ -9,7 +9,7 @@ export default function Home() {
         <Title>This is home!</Title>
       </Box>
       <Box>
-        Go to <a href="/exercises">Go to exercises</a>
+        <a href="/exercises">Testlink: Go to exercises</a>
       </Box>
     </Box>
   );

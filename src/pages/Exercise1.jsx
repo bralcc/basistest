@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import Box from "../components/Box";
 import Title from "../components/Title";
-import Button from "@mui/material/Button";
 
 const operators = ["+", "-", "*", "/"];
 

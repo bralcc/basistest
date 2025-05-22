@@ -1,4 +1,3 @@
-import React from "react";
 import * as IoIcons from "react-icons/io";
 
 const NavbarData = [
@@ -17,6 +16,12 @@ const NavbarData = [
   {
     title: "Profile",
     path: "/profile",
+    icon: <IoIcons.IoIosPerson />,
+    cName: "flex justify-start items-center p-1 list-none hover:bg-gray-200",
+  },
+  {
+    title: "Test Page",
+    path: "/testpage",
     icon: <IoIcons.IoIosPerson />,
     cName: "flex justify-start items-center p-1 list-none hover:bg-gray-200",
   },

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Box from "../components/Box";
 import Title from "../components/Title";
+import Button from "../components/Button";
 
 const operators = ["+", "-", "*", "/"];
 
@@ -112,13 +113,10 @@ export default function Exercise1() {
   }
 
   return (
-    <Box
-      as="section"
-      className="flex flex-col items-center justify-center min-h-screen"
-    >
-      <Title className="text-center">Getalvaardigheidstest</Title>
+    <Box as="main" className="bg-background text-text p-4">
+      <Title className="text-center mb-6">Getalvaardigheidstest</Title>
       {step === "start" && (
-        <Box>
+        <div>
           <h2>Doel</h2>
           <p className="mb-2">
             Dit is een oefening om te meten hoe snel en correct iemand
@@ -137,16 +135,20 @@ export default function Exercise1() {
             Scherm 3 en Oplossing). Doe daarna hetzelfde voor voorbeeld 2 en
             eindig met voorbeeld 3.
           </p>
-        </Box>
+        </div>
       )}
 
-      <Box className="flex flex-col justify-center items-center">
+      <div className="flex flex-col justify-center items-center">
         {["show1", "show2", "choose"].includes(step) && (
           <p className="my-2">Tries: {tries}</p>
         )}
         {step === "start" && (
-          <Box className="flex justify-center items-center">
-            <Button variant="contained" onClick={startExercise}>
+          <Box className="my-6">
+            <Button
+              variant="contained"
+              className="w-full"
+              onClick={startExercise}
+            >
               Start
             </Button>
           </Box>
@@ -162,7 +164,7 @@ export default function Exercise1() {
           </Box>
         )}
         {step === "choose" && (
-          <Box className="flex flex-row justify-center gap-4">
+          <Box className="flex-row justify-center gap-4">
             <Button variant="outlined" onClick={() => handleChoice("first")}>
               B
             </Button>
@@ -187,7 +189,7 @@ export default function Exercise1() {
             </Button>
           </Box>
         )}
-      </Box>
+      </div>
     </Box>
   );
 }

@@ -18,7 +18,7 @@ export default function Button({
       break;
     case "outlined":
       classes.push(
-        "bg-transparent text-text border border-primary hover:bg-primary-light"
+        "bg-transparent text-text outline outline-primary hover:bg-accent hover:outline-hidden"
       );
       break;
     default:

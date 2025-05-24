@@ -1,7 +1,7 @@
 const directions = ["rightUp", "rightDown", "leftUp", "leftDown"];
 const colors = ["black", "white"];
 
-function chooseColorsRandomly() {
+export function chooseColorsRandomly() {
     let chosenColors = [];
     const randomColor = colors[Math.floor(Math.random() * colors.length)];
     chosenColors.push(randomColor);
@@ -10,7 +10,7 @@ function chooseColorsRandomly() {
     return chosenColors;
 }
 
-function chooseDirectionsRandomly() {
+export function chooseDirectionsRandomly() {
     let chosenDirections = [];
     chosenDirections.push(
         directions[Math.floor(Math.random() * directions.length)]
@@ -21,16 +21,14 @@ function chooseDirectionsRandomly() {
     return chosenDirections;
 }
 
-function constructCorrectAnswer() {
+export function constructCorrectAnswer() {
     return {
         directions: chooseDirectionsRandomly(),
         colors: chooseColorsRandomly(),
     };
 }
 
-const correctAnswer = constructCorrectAnswer();
-
-function constructRandomAnswers(max, correctAnswer) {
+export function constructRandomAnswers(max, correctAnswer) {
     const randomAnswers = [];
     while (randomAnswers.length < max) {
         let randomAnswer = {

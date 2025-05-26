@@ -1,19 +1,8 @@
 import React, { useState } from "react";
 import Box from "../components/Box";
 import Title from "../components/Title";
-import {
-  constructCorrectAnswer,
-  constructRandomAnswers,
-} from "../utils/Exercise2Utils";
 
-function generateExerciseSet() {
-  const correct = constructCorrectAnswer();
-  const randomAnswers = constructRandomAnswers(5, correct);
-  const answers = [...randomAnswers];
-  const correctIndex = Math.floor(Math.random() * (answers.length + 1));
-  answers.splice(correctIndex, 0, correct);
-  return { correctAnswer: correct, allAnswers: answers };
-}
+import { generateExerciseSet } from "../utils/Exercise2Utils";
 
 export default function Exercise2() {
   const [{ correctAnswer, allAnswers }, setExercise] =
@@ -27,8 +16,9 @@ export default function Exercise2() {
     );
   }
 
-  const handleAnswer = (event) => {
-    const answerObject = JSON.parse(event.target.value);
+  const handleAnswer = (e) => {
+    const index = Number(e.target.value);
+    const answerObject = allAnswers[index];
     if (isSameAnswer(answerObject, correctAnswer)) {
       setFeedback("Correct!");
     } else {
@@ -40,6 +30,32 @@ export default function Exercise2() {
     }, 1000);
   };
 
+  function formatDirection(direction) {
+    const directionMap = {
+      rightUp: "Rechts Op",
+      rightDown: "Rechts Neer",
+      leftUp: "Links Op",
+      leftDown: "Links Neer",
+    };
+    return directionMap[direction] || direction;
+  }
+
+  function formatColor(color) {
+    const colorMap = {
+      black: "Zwart",
+      white: "Wit",
+    };
+    return colorMap[color] || color;
+  }
+
+  // function isCorrect(answer) {
+  //   return (
+  //     JSON.stringify(answer.directions) ===
+  //       JSON.stringify(correctAnswer.directions) &&
+  //     JSON.stringify(answer.colors) === JSON.stringify(correctAnswer.colors)
+  //   );
+  // }
+
   return (
     <Box as="section">
       <div>
@@ -48,27 +64,38 @@ export default function Exercise2() {
       <div className="flex flex-col justify-center p-4">
         <div className="flex flex-col justify-center p-1">
           <p className="text-center">
-            {`${correctAnswer.directions[0]} ABOVE ${correctAnswer.directions[1]}`}
+            {`${formatDirection(
+              correctAnswer.directions[0]
+            )} BOVEN ${formatDirection(correctAnswer.directions[1])}`}
           </p>
           <br />
-          <p className="text-center">{`${correctAnswer.colors[0]} ABOVE ${correctAnswer.colors[1]}`}</p>
+          <p className="text-center">{`${formatColor(
+            correctAnswer.colors[0]
+          )} BOVEN ${formatColor(correctAnswer.colors[1])}`}</p>
         </div>
         <div className="flex justify-center p-4">
           <div className="grid grid-cols-3 grid-rows-2">
-            {allAnswers.map((item, key) => (
-              <div key={key}>
-                <div>{item.directions.join(", ")}</div>
-                <div>
-                  <button value={JSON.stringify(item)} onClick={handleAnswer}>
-                    X
-                  </button>
+            {allAnswers.map((item, key) => {
+              return (
+                <div key={key} className="flex flex-col justify-center p-1">
+                  <div className="flex flex-col items-center gap-2 text-4xl">
+                    {item.icons[0]}
+                    {item.icons[1]}
+                  </div>
+                  <div className="flex justify-center text-2xl">
+                    <button value={key} onClick={handleAnswer} className="p-2">
+                      X
+                    </button>
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
         {feedback && (
-          <div className="text-center mt-4 font-bold">{feedback}</div>
+          <div className="text-center mt-4 font-bold">
+            <span>{feedback}</span>
+          </div>
         )}
       </div>
     </Box>

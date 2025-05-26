@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Box from "../components/Box";
 import Title from "../components/Title";
 

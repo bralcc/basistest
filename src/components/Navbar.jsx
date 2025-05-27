@@ -3,32 +3,32 @@ import { MdDarkMode, MdOutlineDarkMode } from "react-icons/md";
 import React, { useState } from "react";
 
 export default function Navbar() {
-  const [darkMode, setDarkMode] = useState(false);
+  // const [darkMode, setDarkMode] = useState(false);
 
-  // Check if the user has a preference for dark mode
-  React.useEffect(() => {
-    const userPrefersDark = window.matchMedia(
-      "(prefers-color-scheme: dark)"
-    ).matches;
-    if (userPrefersDark) {
-      setDarkMode(true);
-      document.documentElement.classList.add("dark");
-    }
-  }, []);
+  // // Check if the user has a preference for dark mode
+  // React.useEffect(() => {
+  //   const userPrefersDark = window.matchMedia(
+  //     "(prefers-color-scheme: dark)"
+  //   ).matches;
+  //   if (userPrefersDark) {
+  //     setDarkMode(true);
+  //     document.documentElement.classList.add("dark");
+  //   }
+  // }, []);
 
-  // Toggle dark mode
-  const toggleDarkMode = () => {
-    setDarkMode(!darkMode);
-    document.documentElement.classList.toggle("dark");
-  };
+  // // Toggle dark mode
+  // const toggleDarkMode = () => {
+  //   setDarkMode(!darkMode);
+  //   document.documentElement.classList.toggle("dark");
+  // };
 
-  // Handle click event
-  const handleClick = () => {
-    toggleDarkMode();
-  };
+  // // Handle click event
+  // const handleClick = () => {
+  //   toggleDarkMode();
+  // };
 
-  // Icon based on dark mode state
-  const icon = darkMode ? <MdDarkMode /> : <MdOutlineDarkMode />;
+  // // Icon based on dark mode state
+  // const icon = darkMode ? <MdDarkMode /> : <MdOutlineDarkMode />;
 
   // Navbar component
   return (
@@ -44,9 +44,9 @@ export default function Navbar() {
           })}
         </ul>
       </nav>
-      <div className="absolute top-1 right-1 p-4">
+      {/* <div className="absolute top-1 right-1 p-4">
         <button onClick={handleClick}>{icon}</button>
-      </div>
+      </div> */}
     </div>
   );
 }

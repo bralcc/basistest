@@ -2,7 +2,7 @@ import React from "react";
 
 export default function Box({ as: Tag = "div", children, ...props }) {
   // Base styling of every box
-  let baseClasses = "box-border w-screen p-4 md-rounded shadow ";
+  let baseClasses = "w-full p-2 md-rounded shadow ";
 
   switch (Tag) {
     case "main":
@@ -14,7 +14,7 @@ export default function Box({ as: Tag = "div", children, ...props }) {
       break;
 
     case "section":
-      baseClasses += "flex-row gap-4 ";
+      baseClasses += "flex-row";
       break;
   }
 

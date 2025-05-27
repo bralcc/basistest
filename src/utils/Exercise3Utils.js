@@ -1,10 +1,10 @@
 import categories from "../data/Exercise3Data.js";
 
-export function randomNumber(max) {
+function randomNumber(max) {
   return Math.floor(Math.random() * max);
 }
 
-export function pickRandomCategories(categories, maxTimes = 3) {
+function pickRandomCategories(categories, maxTimes = 3) {
   const pickedCategories = [];
 
   for (let i = 0; i < maxTimes; i++) {
@@ -14,7 +14,7 @@ export function pickRandomCategories(categories, maxTimes = 3) {
   return pickedCategories;
 }
 
-export function pickRandomWordsWithMatchProbability(
+function pickRandomWordsWithMatchProbability(
   categories,
   pickedCategories,
   matchProbability = 0.5
@@ -38,7 +38,7 @@ export function pickRandomWordsWithMatchProbability(
   });
 }
 
-export function checkWordMatchesCategory(pickedWords, pickedCategories) {
+function checkWordMatchesCategory(pickedWords, pickedCategories) {
   let matches = 0;
   pickedWords.forEach((word, key) => {
     const categoryToSearch = pickedCategories[key];

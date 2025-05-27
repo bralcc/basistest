@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import Box from "../components/Box";
+import Title from "../components/Title";
+import Button from "../components/Button";
 import { generateExercise } from "../utils/Exercise3Utils";
 
 export default function Exercise3() {
-  const [step, setStep] = useState("step1");
+  const [step, setStep] = useState("");
   const [feedback, setFeedback] = useState("");
   const [exercise, setExercise] = useState(generateExercise());
 
@@ -15,10 +17,6 @@ export default function Exercise3() {
       setStep("step2");
     }, 2000);
   };
-
-  useEffect(() => {
-    startExercise();
-  }, []);
 
   const handleAnswer = (e) => {
     setStep("feedback");
@@ -32,6 +30,30 @@ export default function Exercise3() {
 
   return (
     <Box as="section">
+      {step === "" && (
+        <div>
+          <Title>Woordgeheugentest</Title>
+          <h2>Doel</h2>
+          <p>
+            Met deze oefening gaan we na of je woorden kunt onthouden en of je
+            er daarna goed en snel een opdracht mee kunt uitvoeren.
+          </p>
+          <br />
+          <h2>Omschrijving</h2>
+          <p>
+            Op het eerste scherm worden drie regels gegeven. Deze regels moet je
+            onthouden. Op het tweede scherm worden drie woorden getoond. Je
+            vergelijkt (uit het hoofd) de VOLGORDE van de woorden met de
+            VOLGORDE van de regels en je bepaalt hoeveel woorden er overeenkomen
+            met de regel.
+          </p>
+          <br />
+          <Button variant="contained" onClick={startExercise}>
+            Start
+          </Button>
+        </div>
+      )}
+
       {step === "step1" && (
         <div className="flex flex-col justify-center gap-2">
           <div className="text-center text-2xl">
@@ -72,7 +94,7 @@ export default function Exercise3() {
         </div>
       )}
       {step === "feedback" && (
-        <div>
+        <div className="flex flex-col justify-center p-2">
           <h2>Feedback</h2>
           <div>{feedback}</div>
         </div>

@@ -9,20 +9,19 @@ export default function Button({
   ...props
 }) {
   const classes = [
-    "px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-primary focus:ring-opacity-50 transition duration-200 ease-in-out",
+    "px-5 py-2.5 ring-inset text-text font-medium rounded-md transition duration-300 ease-in-out",
   ];
 
   switch (variant) {
-    case "contained":
-      classes.push("bg-primary text-text hover:text-accent");
-      break;
     case "outlined":
       classes.push(
-        "bg-transparent text-text outline outline-primary hover:bg-accent hover:outline-hidden"
+        "bg-white ring-3 hover:bg-black hover:ring-0 hover:text-white hover:outline-none"
       );
       break;
-    default:
-      classes.push("bg-gray-200 text-gray-800 hover:bg-gray-300");
+    case "contained":
+      classes.push(
+        "bg-black text-white hover:bg-white hover:text-text hover:ring-3"
+      );
       break;
   }
 

@@ -49,6 +49,7 @@ function checkWordMatchesCategory(pickedWords, pickedCategories) {
   return matches;
 }
 
+// This function returns an object fit for rendering in the component
 export function generateExercise() {
   const randomlyPickedCategories = pickRandomCategories(categories, 3);
   const randomlyPickedWords = pickRandomWordsWithMatchProbability(

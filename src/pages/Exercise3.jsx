@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Box from "../components/Box";
 import Title from "../components/Title";
 import Button from "../components/Button";
@@ -53,13 +53,12 @@ export default function Exercise3() {
           </Button>
         </div>
       )}
-
       {step === "step1" && (
-        <div className="flex flex-col justify-center gap-2">
-          <div className="text-center text-2xl">
-            <h1>REGELS</h1>
+        <div className="flex flex-col justify-center">
+          <div className="text-center text-2xl ring-1 p-1">
+            <p>REGELS</p>
           </div>
-          <div className="flex justify-center gap-x-2">
+          <div className="flex justify-center gap-x-2 ring-1 p-1">
             {exercise.categories.map((cat, key) => (
               <span key={key}>{cat.name}</span>
             ))}
@@ -67,23 +66,27 @@ export default function Exercise3() {
         </div>
       )}
       {step === "step2" && (
-        <div className="flex flex-row flex-auto justify-center gap-4">
-          <div className="flex flex-col flex-auto items-center gap-2">
-            <h2>Woorden</h2>
-            <div className="flex gap-4 font-bold">
+        <div className="flex flex-col justify-center gap-4">
+          <div className="flex flex-row flex-auto items-center">
+            <div className="ring-1 p-2 flex-1 text-center">
+              <p>WOORDEN</p>
+            </div>
+            <div className="flex justify-around ring-1 font-bold p-2 flex-1">
               {exercise.words.map((word, key) => (
                 <span key={key}>{word}</span>
               ))}
             </div>
           </div>
-          <div className="flex flex-col flex-auto items-center">
-            <h2>Overeenkomsten</h2>
-            <div className="flex flex-row gap-2">
+          <div className="flex flex-row flex-auto items-center">
+            <div className="flex-1 text-center">
+              <p className="ring-1 p-2">OVEREENKOMSTEN</p>
+            </div>
+            <div className="flex flex-row flex-1">
               {[0, 1, 2, 3].map((num) => (
                 <button
                   key={num}
                   value={num}
-                  className="p-3 bg-accent hover:bg-cyan-800"
+                  className="p-2 ring-1 hover:ring-2 flex-1"
                   onClick={handleAnswer}
                 >
                   {num}
@@ -94,8 +97,7 @@ export default function Exercise3() {
         </div>
       )}
       {step === "feedback" && (
-        <div className="flex flex-col justify-center p-2">
-          <h2>Feedback</h2>
+        <div className="flex flex-col items-center p-2">
           <div>{feedback}</div>
         </div>
       )}

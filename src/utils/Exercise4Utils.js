@@ -53,6 +53,8 @@ function constructRandomComparisonExercise(data) {
     [`${b} ${comp2Text} ${c}`],
   ]);
 
+  // this function is incomplete and only gives a one-sided statement which makes it too easy to answer
+
   let answer;
   if (askLargest) {
     answer = c;

@@ -37,36 +37,62 @@ function questionWordMap(object, askLargest) {
   }
 }
 
-function constructRandomComparisonExercise(data) {
+
+function constructStatements(data) {
   const object = pickRandomObject(data);
   const [a, b, c] = pickUniqueRandomWords(object);
-  let randomIndex = generateRandomNumber(1);
-
-  const comp1Text = object.comparisons[randomIndex][1];
-  randomIndex = generateRandomNumber(1);
-
-  const comp2Text = object.comparisons[randomIndex][1];
   const askLargest = Math.random() < 0.5;
 
-  let statements = shuffleArray([
-    [`${a} ${comp1Text} ${b}`],
-    [`${b} ${comp2Text} ${c}`],
-  ]);
+  // Randomly pick a comparison pattern: both "<", both ">", or mixed
+  const patterns = [
+    ["<", "<"],
+    [">", ">"],
+    ["<", ">"],
+    [">", "<"],
+  ];
+  const [comp1, comp2] = patterns[generateRandomNumber(patterns.length)];
 
-  // this function is incomplete and only gives a one-sided statement which makes it too easy to answer
+  // Get the comparison texts from the object
+  const comp1Text =
+    comp1 === "<" ? object.comparisons[0][1] : object.comparisons[1][1];
+  const comp2Text =
+    comp2 === "<" ? object.comparisons[0][1] : object.comparisons[1][1];
 
+  // Build the statements
+  const statements = [`${a} ${comp1Text} ${b}`, `${b} ${comp2Text} ${c}`];
+
+  // Deduce the order using a score system
+  const scores = { [a]: 0, [b]: 0, [c]: 0 };
+  // a ? b
+  if (comp1 === ">") {
+    scores[a]++;
+    scores[b]--;
+  } else {
+    scores[a]--;
+    scores[b]++;  
+  }
+  // b ? c
+  if (comp2 === ">") {
+    scores[b]++;
+    scores[c]--;
+  } else {
+    scores[b]--;
+    scores[c]++;
+  }
+  // Sort by score
+  const sorted = Object.entries(scores).sort((a, b) => b[1] - a[1]);
   let answer;
   if (askLargest) {
-    answer = c;
+    answer = sorted[0][0];
   } else {
-    answer = a;
+    answer = sorted[2][0];
   }
   const question = `Wat is ${questionWordMap(object, askLargest)}?`;
   return { statements, question, answer };
 }
 
 // Example usage:
-const exercise = constructRandomComparisonExercise(data);
-console.log(exercise.statements.join("\n"));
+const exercise = constructStatements(data);
+console.log(exercise.statements);
 console.log(exercise.question);
 console.log("Answer:", exercise.answer);

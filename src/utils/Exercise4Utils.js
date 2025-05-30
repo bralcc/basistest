@@ -37,8 +37,7 @@ function questionWordMap(object, askLargest) {
   }
 }
 
-
-function constructStatements(data) {
+export function constructExercise(data) {
   const object = pickRandomObject(data);
   const [a, b, c] = pickUniqueRandomWords(object);
   const askLargest = Math.random() < 0.5;
@@ -69,7 +68,7 @@ function constructStatements(data) {
     scores[b]--;
   } else {
     scores[a]--;
-    scores[b]++;  
+    scores[b]++;
   }
   // b ? c
   if (comp2 === ">") {
@@ -92,7 +91,7 @@ function constructStatements(data) {
 }
 
 // Example usage:
-const exercise = constructStatements(data);
+const exercise = constructExercise(data);
 console.log(exercise.statements);
 console.log(exercise.question);
 console.log("Answer:", exercise.answer);
